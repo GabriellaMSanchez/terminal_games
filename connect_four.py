@@ -27,7 +27,7 @@ class ConnectFour():
                 break
             # Player One's turn
             if is_player_one:
-                self.player_turn(is_player_one, board, player_one_token, self.board_length)
+                self.player_turn(is_player_one, board, player_one_token)
                 # Validate if a player has won at the end of each turn.
                 is_won = self.is_won(board)
                 # If player has not one, it is next players turn.
@@ -35,7 +35,7 @@ class ConnectFour():
                     is_player_one = False
             # Player Two's turn
             else:
-                self.player_turn(is_player_one, board, player_two_token, self.board_length)
+                self.player_turn(is_player_one, board, player_two_token)
                 # Validate if a player has won at the end of each turn.
                 is_won = self.is_won(board)
                 # If player has not one, it is next players turn.
@@ -123,7 +123,7 @@ class ConnectFour():
 
 
     # Asks the player their input, validates choice, and saves choice in board.
-    def player_turn(self, is_player_one, board, player_token, board_length):
+    def player_turn(self, is_player_one, board, player_token):
         valid_input = None
         if is_player_one:
             player = 1
@@ -151,7 +151,6 @@ class ConnectFour():
 
     # Validates if a player has won.
     def is_won(self, board):
-        player_won = None
 
         for i in range(len(board) - 1, -1, -1):
             for j in range(len(board) - 1):
@@ -178,8 +177,6 @@ class ConnectFour():
                         print("diag enter")
                         return True
             return False
-
-        # return player_won
 
     # Prints who has won or if there is a tie to the players.
     def print_who_won(self, is_won, is_player_one):
