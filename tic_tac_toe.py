@@ -39,9 +39,9 @@ class TicTacToe():
                     is_player_one = True
                     
 
-            # When someone has one,  print the winning board, and who has won.
-            print(self.print_board(board))
-            self.print_who_won(is_won, is_player_one)
+        # When someone has one,  print the winning board, and who has won.
+        print(self.print_board(board))
+        self.print_who_won(is_won, is_player_one)
 
     # Ask Player One to select X's or O's
     def pick_token(self):
