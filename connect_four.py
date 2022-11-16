@@ -40,9 +40,7 @@ class ConnectFour():
                 is_won = self.is_won(board)
                 # If player has not one, it is next players turn.
                 if not is_won:
-                    is_player_one = True
-            print(is_won)
-                    
+                    is_player_one = True                    
 
         # When someone has one,  print the winning board, and who has won.
         print(self.print_board(board, self.board_width))
@@ -97,6 +95,8 @@ class ConnectFour():
         print_board = []
 
         print_board.append(self.column_headers(board_width))
+        horiz_line = self.generate_horizontal_line(board, self.board_width)
+        print_board.append(horiz_line)
 
         for i in range(len(board)):
             for j in range(len(board[i])):
@@ -107,20 +107,21 @@ class ConnectFour():
             print_board.append("\n")
             horiz_line = self.generate_horizontal_line(board, self.board_width)
             print_board.append(horiz_line)
+
         return "".join(print_board)
 
     def generate_horizontal_line(self, board, board_width):
         for i in range(len(board)):
-            if i <= len(board) - 1:
+            if i <= (len(board)):
                 horizontal_stack = []
-                for i in range(board_width):
-                    if i == 0:
+                for j in range(board_width):
+                    if j == 0:
                         horizontal_stack.append('+------+')
                     else:
                         horizontal_stack.append('------+')
                 horizontal_stack.append("\n")
-            return "".join(horizontal_stack)
-
+        
+        return "".join(horizontal_stack)
 
     # Asks the player their input, validates choice, and saves choice in board.
     def player_turn(self, is_player_one, board, player_token):
@@ -162,20 +163,23 @@ class ConnectFour():
                 if (j + 3) <= len(board) - 1:
                     horiz_check = True
                     if board[i][j] == board[i][j + 1] == board[i][j + 2] == board[i][j + 3]:
-                        print("horiz enter")
                         return True
                 # check vertical win
                 if (i - 3) >= 0:
                     vert_check = True
                     if board[i][j] == board[i - 1][j] == board[i - 2][j] == board[i - 3][j]:
-                        print("vert enter")
                         return True
-                # check diagonal win, a connect four diagonal can only occur
+                # check diagonal up right win, a connect four diagonal up right can only occur
                 # if both horizontal and vertical checks pass
                 if horiz_check and vert_check:
                     if board[i][j] == board[i - 1][j + 1] == board[i - 2][j + 2] == board[i - 3][j + 3]:
-                        print("diag enter")
                         return True
+                # check diagonal up left, a connect four diagonal can only occur
+                # if vertical checks pass and horiz check does not pass
+                if vert_check and not horiz_check:
+                    if board[i][j] == board[i - 1][j - 1] == board[i - 2][j - 2] == board[i - 3][j - 3]:
+                        return True
+
             return False
 
     # Prints who has won or if there is a tie to the players.
